@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>A pup has been adopted!</h1>
-    <br>
-    <P>You'll need the pup id to remove it from our database</P>
-    <p>If you don't know, check for the pup id <a href="{{ url_for('puppies.list') }}">here</a></p>
+
+    <h1>Puppy got adopted, let's give it an owner!</h1>
+    <p>You'll need the puppy id, if you don't know, look <a href="{{ url_for('puppies.list') }}">here</a></p>
+
     <form method="POST">
 
         {{ form.hidden_tag() }}
-        {{ form.id.label }} {{ form.id() }}
+        {{ form.puppy_id.label }} {{form.puppy_id() }}
+        <br>
+        {{ form.name.label }} {{ form.name() }}
         {{ form.submit() }}
         <br>
         {% for mess in get_flashed_messages() %}
             <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                <p>{{ mess }}</p>
+            <p>{{ mess }}</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         {% endfor %}
@@ -22,4 +24,5 @@
     </form>
     <br>
     <p>To check our available puppies, click <a href="{{ url_for('puppies.list') }}">here</a></p>
+
 {% endblock %}

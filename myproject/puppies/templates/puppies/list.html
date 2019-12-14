@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Check all the lovely puppies we've got!</h1>
+
+    <ul>
+        {% for pup in puppies %}
+        <li>{{ pup }}, id {{ pup.id }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
