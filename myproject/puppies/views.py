@@ -5,12 +5,12 @@ from .forms import AddForm, DelForm
 from myproject.models import Puppy
 
 
-puppy_blueprint = Blueprint(
+puppies_blueprint = Blueprint(
     'puppies', __name__, template_folder='templates/puppies'
 )
 
 
-@puppy_blueprint.route('/add', methods=['GET', 'POST'])
+@puppies_blueprint.route('/add', methods=['GET', 'POST'])
 def add():
 
     form = AddForm()
@@ -27,7 +27,7 @@ def add():
     return render_template('add.html', form=form)
 
 
-@puppy_blueprint.route('del', methods=['GET', 'POST'])
+@puppies_blueprint.route('del', methods=['GET', 'POST'])
 def delete():
 
     form = DelForm()
