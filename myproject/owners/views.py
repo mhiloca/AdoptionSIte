@@ -1,7 +1,7 @@
 # myproject/owners/views.py
 from flask import Blueprint, render_template, redirect, url_for
 from myproject import db
-from .forms import AddForm
+from myproject.owners.forms import AddForm
 from myproject.models import Owner
 
 owners_blueprint = Blueprint(
@@ -10,7 +10,7 @@ owners_blueprint = Blueprint(
 
 
 @owners_blueprint.route('/add', methods=['GET', 'POST'])
-def add():
+def addo():
 
     form = AddForm()
 
@@ -22,6 +22,6 @@ def add():
         db.session.add(new_owner)
         db.session.commit()
 
-        return redirect(url_for('puppies.list'))
+        return redirect(url_for('puppies.lists'))
 
-    return render_template('add.html', form=form)
+    return render_template('addo.html', form=form)

@@ -1,7 +1,7 @@
 # myproject/puppies/views.py
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash
 from myproject import db
-from .forms import AddForm, DelForm
+from myproject.puppies.forms import AddForm, DelForm
 from myproject.models import Puppy
 
 
@@ -11,8 +11,7 @@ puppies_blueprint = Blueprint(
 
 
 @puppies_blueprint.route('/add', methods=['GET', 'POST'])
-def add():
-
+def addp():
     form = AddForm()
 
     if form.validate_on_submit():
@@ -22,23 +21,30 @@ def add():
         db.session.add(new_pup)
         db.session.commit()
 
-        return redirect(url_for('puppies.list'))
+        return redirect(url_for('puppies.lists'))
 
-    return render_template('add.html', form=form)
+    return render_template('addp.html', form=form)
 
 
-@puppies_blueprint.route('del', methods=['GET', 'POST'])
+@puppies_blueprint.route('/list')
+def lists():
+    puppies = Puppy.query.all()
+    return render_template('list.html', puppies=puppies)
+
+
+@puppies_blueprint.route('/delete', methods=['GET', 'POST'])
 def delete():
-
     form = DelForm()
 
     if form.validate_on_submit():
         pup_id = form.id.data
 
         pup = Puppy.query.get(pup_id)
+        flash(f'{pup.name} has been adopted, so it\'s no longer in our database')
+
         db.session.delete(pup)
         db.session.commit()
 
-        return redirect(url_for('list.puppies'))
+        return redirect(url_for('puppies.delete'))
 
     return render_template('delete.html', form=form)
